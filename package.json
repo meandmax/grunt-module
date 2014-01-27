@@ -1,0 +1,37 @@
+{
+    "name": "grunt-module",
+    "version": "0.0.0",
+    "description": "TODO",
+    "keywords": [
+        "TODO"
+    ],
+    "author": {
+        "name": "Clemens Akens",
+        "email": "clebert@me.com",
+        "url": "http://clebert.com/"
+    },
+    "bugs": {
+        "url": "https://github.com/clebert/grunt-module/issues"
+    },
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "inceptionYear": "2014",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/clebert/grunt-module/master/LICENSE"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/clebert/grunt-module.git"
+    },
+    "scripts": {
+        "test": "node_modules/.bin/grunt"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-cli": "~0.1.13"
+    }
+}
