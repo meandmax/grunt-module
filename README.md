@@ -89,7 +89,7 @@ Default value: `false`
 
 Publish to the NPM registry.
 
-### Usage Example
+### Usage
 
     grunt.initConfig({
         module: {
