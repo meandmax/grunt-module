@@ -63,6 +63,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('release', function (type) {
         grunt.task.run('lint');
+        grunt.task.run('module:check');
         grunt.task.run('bumpup:' + (type || 'patch'));
     });
 
