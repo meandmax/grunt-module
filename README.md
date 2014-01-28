@@ -38,14 +38,14 @@ In your project's Gruntfile, add a section named `module` to the data object pas
 Type: `boolean`
 Default value: `false`
 
-Insert or replace the copyright information.
+Insert or replace the generated copyright notice.
 
 #### options.line
 
 Type: `number`
 Default value: `1`
 
-The line number at which to insert or replace the copyright information.
+The line number at which to insert or replace the generated copyright notice.
 
 #### options.newline
 
@@ -59,14 +59,14 @@ The newline character to use.
 Type: `string`
 Default value: `''`
 
-The prefix to add before the copyright information.
+The prefix to add before the generated copyright notice.
 
 #### options.suffix
 
 Type: `string`
 Default value: `''`
 
-The suffix to add after the copyright information.
+The suffix to add after the generated copyright notice.
 
 #### options.check
 
@@ -113,6 +113,19 @@ Publish to the NPM registry.
             }
         }
     });
+
+If this plugin is used to generate a copyright notice, please add the following fields to your project's package.json file:
+
+    {
+        "author": {
+            "name": "your_name",
+            "email": "optional_your_email",
+            "url": "optional_your_url"
+        },
+        "inceptionYear": 2014
+    }
+
+Use a grunt plugin like [grunt-bumpup](https://github.com/Darsain/grunt-bumpup) to update your project's version.
 
 ## Running the tests
 

@@ -19,7 +19,7 @@
     "engines": {
         "node": ">= 0.10.0"
     },
-    "inceptionYear": "2014",
+    "inceptionYear": 2014,
     "licenses": [
         {
             "type": "MIT",
