@@ -3,11 +3,6 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         bumpup: {
-            options: {
-                updateProps: {
-                    pkg: 'package.json'
-                }
-            },
             file: 'package.json'
         },
         jshint: {
@@ -61,10 +56,12 @@ module.exports = function (grunt) {
         'jshint:json'
     ]);
 
-    grunt.registerTask('release', function (type) {
+    grunt.registerTask('publish', function (type) {
         grunt.task.run('lint');
         grunt.task.run('module:check');
         grunt.task.run('bumpup:' + (type || 'patch'));
+        grunt.task.run('module:license');
+        grunt.task.run('module:release-publish');
     });
 
     grunt.registerTask('travis', 'lint');
