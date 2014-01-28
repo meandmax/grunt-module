@@ -3,6 +3,11 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         module: {
+            check: {
+                options: {
+                    check: true
+                }
+            },
             license: {
                 options: {
                     replace: true,
@@ -10,9 +15,10 @@ module.exports = function (grunt) {
                 },
                 src: 'LICENSE'
             },
-            check: {
+            'release-publish': {
                 options: {
-                    check: true
+                    release: true,
+                    publish: true
                 }
             }
         }
