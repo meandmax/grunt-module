@@ -1,6 +1,6 @@
 # grunt-module [![Build Status](https://travis-ci.org/clebert/grunt-module.png?branch=master)](https://travis-ci.org/clebert/grunt-module) [![Code Climate](https://codeclimate.com/github/clebert/grunt-module.png)](https://codeclimate.com/github/clebert/grunt-module) [![NPM version](https://badge.fury.io/js/grunt-module.png)](http://badge.fury.io/js/grunt-module)
 
-> {%= description %}
+> A Grunt plugin to release and publish your NPM module.
 
 ## Getting Started
 
@@ -80,7 +80,7 @@ Check the Git repository status.
 Type: `boolean`
 Default value: `false`
 
-Make and push a tag/release.
+Make and push a Git tag/release.
 
 #### options.publish
 
