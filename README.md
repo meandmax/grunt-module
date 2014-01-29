@@ -1,4 +1,4 @@
-# grunt-module [![Build Status](https://travis-ci.org/clebert/grunt-module.png?branch=master)](https://travis-ci.org/clebert/grunt-module) [![Code Climate](https://codeclimate.com/github/clebert/grunt-module.png)](https://codeclimate.com/github/clebert/grunt-module) [![NPM version](https://badge.fury.io/js/grunt-module.png)](http://badge.fury.io/js/grunt-module)
+# grunt-module [![Build Status](https://travis-ci.org/clebert/grunt-module.png?branch=master)](https://travis-ci.org/clebert/grunt-module) [![Code Climate](https://codeclimate.com/github/clebert/grunt-module.png)](https://codeclimate.com/github/clebert/grunt-module) [![NPM version](https://badge.fury.io/js/grunt-module.png)](https://badge.fury.io/js/grunt-module)
 
 > A Grunt plugin to release and publish your NPM module.
 
