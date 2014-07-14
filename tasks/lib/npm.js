@@ -1,13 +1,17 @@
 'use strict';
 
-var Bin = require('./bin');
+var createExecutable = require('./exe').createExecutable;
 
-module.exports = function (grunt) {
-    var npm = new Bin(grunt, 'npm');
+function Npm(grunt) {
+    var executable = createExecutable(grunt, 'npm');
 
     this.publish = function (callback) {
-        npm.execute([
+        executable.execute([
             'publish'
         ], callback);
     };
+}
+
+exports.createNpm = function (grunt) {
+    return new Npm(grunt);
 };

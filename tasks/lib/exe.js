@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt, cmd) {
+function Executable(grunt, cmd) {
     this.execute = function (args, callback) {
         grunt.util.spawn({
             cmd: cmd,
@@ -13,4 +13,8 @@ module.exports = function (grunt, cmd) {
             callback(result.stdout);
         });
     };
+}
+
+exports.createExecutable = function (grunt, cmd) {
+    return new Executable(grunt, cmd);
 };

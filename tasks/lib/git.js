@@ -1,19 +1,19 @@
 'use strict';
 
-var Bin = require('./bin');
+var createExecutable = require('./exe').createExecutable;
 
-module.exports = function (grunt) {
-    var git = new Bin(grunt, 'git');
+function Git(grunt) {
+    var executable = createExecutable(grunt, 'git');
 
-    this.add = function (callback) {
-        git.execute([
+    this.addAll = function (callback) {
+        executable.execute([
             'add',
             '--all'
         ], callback);
     };
 
     this.commit = function (message, callback) {
-        git.execute([
+        executable.execute([
             'commit',
             '-m',
             message
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     };
 
     this.getBranch = function (callback) {
-        git.execute([
+        executable.execute([
             'rev-parse',
             '--abbrev-ref',
             'HEAD'
@@ -29,18 +29,18 @@ module.exports = function (grunt) {
     };
 
     this.getStatus = function (callback) {
-        git.execute([
+        executable.execute([
             'status',
             '--porcelain'
         ], callback);
     };
 
-    this.push = function (callback) {
-        git.execute([
+    this.pushAll = function (callback) {
+        executable.execute([
             'push',
             '--all'
         ], function () {
-            git.execute([
+            executable.execute([
                 'push',
                 '--tags'
             ], callback);
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
     };
 
     this.tag = function (name, message, callback) {
-        git.execute([
+        executable.execute([
             'tag',
             '-a',
             name,
@@ -56,4 +56,8 @@ module.exports = function (grunt) {
             message
         ], callback);
     };
+}
+
+exports.createGit = function (grunt) {
+    return new Git(grunt);
 };
