@@ -1,10 +1,10 @@
 {
     "name": "grunt-module",
     "version": "0.1.2",
-    "description": "A Grunt plugin to release and publish your NPM module.",
+    "description": "A Grunt plugin to release and publish an npm module.",
     "keywords": [
-        "copyright",
-        "gruntplugin",
+        "grunt",
+        "plugin",
         "publish",
         "release"
     ],
@@ -23,7 +23,7 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://raw.github.com/clebert/grunt-module/master/LICENSE"
+            "url": "https://raw.githubusercontent.com/clebert/grunt-module/master/LICENSE"
         }
     ],
     "repository": {
@@ -34,9 +34,9 @@
         "test": "node_modules/.bin/grunt"
     },
     "devDependencies": {
-        "grunt": "~0.4.2",
-        "grunt-bumpup": "~0.5.0",
+        "grunt": "~0.4.5",
+        "grunt-bumpup": "~0.5.2",
         "grunt-cli": "~0.1.13",
-        "grunt-contrib-jshint": "~0.8.0"
+        "grunt-contrib-jshint": "~0.10.0"
     }
 }

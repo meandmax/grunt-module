@@ -49,7 +49,9 @@ module.exports = function (grunt) {
 
     grunt.loadTasks('tasks');
 
-    grunt.registerTask('default', 'lint');
+    grunt.registerTask('default', [
+        'lint'
+    ]);
 
     grunt.registerTask('lint', [
         'jshint:lint-js',
@@ -64,5 +66,7 @@ module.exports = function (grunt) {
         grunt.task.run('module:release-publish');
     });
 
-    grunt.registerTask('travis', 'default');
+    grunt.registerTask('travis', [
+        'default'
+    ]);
 };
