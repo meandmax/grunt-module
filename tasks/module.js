@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-var createGit = require('./lib/git').createGit;
-var createNpm = require('./lib/npm').createNpm;
-var pkg = require('../package');
+var createGit = require("./lib/git").createGit;
+var createNpm = require("./lib/npm").createNpm;
+var description = require("../package").description;
 
-function check(grunt, options, callback) {
+var check = function (grunt, options, callback) {
     if (!options.check) {
         setImmediate(callback);
         return;
@@ -13,69 +13,69 @@ function check(grunt, options, callback) {
     var git = createGit(grunt);
 
     git.getBranch(function (branch) {
-        if (branch !== 'master') {
-            grunt.fail.warn('Not on branch master.');
+        if (branch !== "master") {
+            grunt.fail.warn("Not on branch master.");
         }
 
-        grunt.log.ok('On branch master.');
+        grunt.log.ok("On branch master.");
 
         git.getStatus(function (status) {
             if (status) {
-                grunt.fail.warn('Unclean working tree.');
+                grunt.fail.warn("Unclean working tree.");
             }
 
-            grunt.log.ok('Clean working tree.');
+            grunt.log.ok("Clean working tree.");
 
             callback();
         });
     });
-}
+};
 
-function createCopyright(grunt, options) {
+var createCopyright = function (grunt, options) {
     var currentYear = new Date().getFullYear();
-    var pkg = grunt.file.readJSON('package.json');
+    var pkg = grunt.file.readJSON("package.json");
     var inceptionYear = parseInt(pkg.inceptionYear, 10);
 
     if (isNaN(inceptionYear)) {
         inceptionYear = currentYear;
     }
 
-    var copyright = 'Copyright (c) ' + inceptionYear;
+    var copyright = "Copyright (c) " + inceptionYear;
 
     if (inceptionYear !== currentYear) {
-        copyright += ', ' + currentYear;
+        copyright += ", " + currentYear;
     }
 
-    copyright += ' ' + pkg.author.name;
+    copyright += " " + pkg.author.name;
 
     if (pkg.author.email) {
-        copyright += ' <' + pkg.author.email + '>';
+        copyright += " <" + pkg.author.email + ">";
     }
 
     if (pkg.author.url) {
-        copyright += ' (' + pkg.author.url + ')';
+        copyright += " (" + pkg.author.url + ")";
     }
 
     var prefix = grunt.template.process(options.prefix);
     var suffix = grunt.template.process(options.suffix);
 
     return prefix + copyright + suffix;
-}
+};
 
-function publish(grunt, options, callback) {
+var publish = function (grunt, options, callback) {
     if (!options.publish) {
         setImmediate(callback);
         return;
     }
 
     createNpm(grunt).publish(function () {
-        grunt.log.ok('Published to npm.');
+        grunt.log.ok("Published to npm.");
 
         callback();
     });
-}
+};
 
-function release(grunt, options, callback) {
+var release = function (grunt, options, callback) {
     if (!options.release) {
         setImmediate(callback);
         return;
@@ -84,32 +84,32 @@ function release(grunt, options, callback) {
     var git = createGit(grunt);
 
     git.addAll(function () {
-        var pkg = grunt.file.readJSON('package.json');
-        var version = 'v' + pkg.version;
-        var message = 'Release ' + version;
+        var pkg = grunt.file.readJSON("package.json");
+        var version = "v" + pkg.version;
+        var message = "Release " + version;
 
         git.commit(message, function () {
             git.tag(version, message, function () {
                 git.pushAll(function () {
-                    grunt.log.ok('Released ' + version + '.');
+                    grunt.log.ok("Released " + version + ".");
 
                     callback();
                 });
             });
         });
     });
-}
+};
 
-function createTask(grunt, context) {
+var createTask = function (grunt, context) {
     var options = context.options({
-        replace: false,
-        line: 1,
-        newline: '\n',
-        prefix: '',
-        suffix: '',
-        check: false,
-        release: false,
-        publish: false
+        "replace": false,
+        "line": 1,
+        "newline": "\n",
+        "prefix": "",
+        "suffix": "",
+        "check": false,
+        "release": false,
+        "publish": false
     });
 
     context.files.forEach(function (file) {
@@ -125,7 +125,7 @@ function createTask(grunt, context) {
 
             grunt.file.write(path, lines.join(options.newline));
 
-            grunt.log.ok('Modified file "' + path + '".');
+            grunt.log.ok("Modified file '" + path + "'.");
         });
     });
 
@@ -136,10 +136,10 @@ function createTask(grunt, context) {
             publish(grunt, options, done);
         });
     });
-}
+};
 
 module.exports = function (grunt) {
-    grunt.registerMultiTask('module', pkg.description, function () {
+    grunt.registerMultiTask("module", description, function () {
         createTask(grunt, this);
     });
 };

@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-function Executable(grunt, cmd) {
+var Executable = function (grunt, cmd) {
     this.execute = function (args, callback) {
         grunt.util.spawn({
-            cmd: cmd,
-            args: args
+            "cmd": cmd,
+            "args": args
         }, function (error, result) {
             if (error) {
                 grunt.fail.fatal(error);
@@ -13,7 +13,7 @@ function Executable(grunt, cmd) {
             callback(result.stdout);
         });
     };
-}
+};
 
 exports.createExecutable = function (grunt, cmd) {
     return new Executable(grunt, cmd);

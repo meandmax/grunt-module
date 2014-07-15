@@ -1,72 +1,69 @@
-'use strict';
+"use strict";
 
 module.exports = function (grunt) {
     grunt.initConfig({
-        bumpup: {
-            file: 'package.json'
+        "bumpup": {
+            "file": "package.json"
         },
-        jshint: {
-            'lint-js': {
-                options: {
-                    jshintrc: '.jshintrc'
-                },
-                src: [
-                    '**/*.js',
-                    '!node_modules/**/*.js'
-                ]
-            },
-            'lint-json': {
-                src: [
-                    '**/*.json',
-                    '!node_modules/**/*.json'
-                ]
-            }
+        "eslint": {
+            "src": [
+                "**/*.js",
+                "!node_modules/**/*.js"
+            ]
         },
-        module: {
-            'check-repository': {
-                options: {
-                    check: true
+        "jshint": {
+            "src": [
+                ".eslintrc",
+                "**/*.json",
+                "!node_modules/**/*.json"
+            ]
+        },
+        "module": {
+            "check-repository": {
+                "options": {
+                    "check": true
                 }
             },
-            'license-copyright': {
-                options: {
-                    replace: true,
-                    line: 3
+            "license-copyright": {
+                "options": {
+                    "replace": true,
+                    "line": 3
                 },
-                src: 'LICENSE'
+                "src": "LICENSE"
             },
-            'release-publish': {
-                options: {
-                    release: true,
-                    publish: true
+            "release-publish": {
+                "options": {
+                    "release": true,
+                    "publish": true
                 }
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-bumpup');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks("grunt-bumpup");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-eslint");
 
-    grunt.loadTasks('tasks');
+    grunt.loadTasks("tasks");
 
-    grunt.registerTask('default', [
-        'lint'
+    grunt.registerTask("default", [
+        "lint"
     ]);
 
-    grunt.registerTask('lint', [
-        'jshint:lint-js',
-        'jshint:lint-json'
+    grunt.registerTask("lint", [
+        "jshint",
+        "eslint"
     ]);
 
-    grunt.registerTask('publish', function (type) {
-        grunt.task.run('default');
-        grunt.task.run('module:check-repository');
-        grunt.task.run('bumpup:' + (type || 'patch'));
-        grunt.task.run('module:license-copyright');
-        grunt.task.run('module:release-publish');
+    grunt.registerTask("publish", function (type) {
+        grunt.task.run("default");
+        grunt.task.run("module:check-repository");
+        grunt.task.run("bumpup:" + (type || "patch"));
+        grunt.task.run("module:license-copyright");
+        grunt.task.run("module:release-publish");
     });
 
-    grunt.registerTask('travis', [
-        'default'
+    grunt.registerTask("travis", [
+        "default"
     ]);
 };

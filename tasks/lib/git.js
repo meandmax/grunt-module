@@ -1,62 +1,62 @@
-'use strict';
+"use strict";
 
-var createExecutable = require('./exe').createExecutable;
+var createExecutable = require("./exe").createExecutable;
 
-function Git(grunt) {
-    var executable = createExecutable(grunt, 'git');
+var Git = function (grunt) {
+    var executable = createExecutable(grunt, "git");
 
     this.addAll = function (callback) {
         executable.execute([
-            'add',
-            '--all'
+            "add",
+            "--all"
         ], callback);
     };
 
     this.commit = function (message, callback) {
         executable.execute([
-            'commit',
-            '-m',
+            "commit",
+            "-m",
             message
         ], callback);
     };
 
     this.getBranch = function (callback) {
         executable.execute([
-            'rev-parse',
-            '--abbrev-ref',
-            'HEAD'
+            "rev-parse",
+            "--abbrev-ref",
+            "HEAD"
         ], callback);
     };
 
     this.getStatus = function (callback) {
         executable.execute([
-            'status',
-            '--porcelain'
+            "status",
+            "--porcelain"
         ], callback);
     };
 
     this.pushAll = function (callback) {
         executable.execute([
-            'push',
-            '--all'
+            "push",
+            "--all"
         ], function () {
             executable.execute([
-                'push',
-                '--tags'
+                "push",
+                "--tags"
             ], callback);
         });
     };
 
     this.tag = function (name, message, callback) {
         executable.execute([
-            'tag',
-            '-a',
+            "tag",
+            "-a",
             name,
-            '-m',
+            "-m",
             message
         ], callback);
     };
-}
+};
 
 exports.createGit = function (grunt) {
     return new Git(grunt);
