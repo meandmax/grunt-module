@@ -8,7 +8,7 @@
 
     "rules": {
 
-        // Possible Errors
+        /* Possible Errors ****************************************************/
 
         "no-cond-assign":             2, // disallow assignment in conditional expressions
         "no-console":                 0, // disallow use of console
@@ -36,7 +36,7 @@
         "valid-jsdoc":                0, // Ensure JSDoc comments are valid
         "valid-typeof":               2, // Ensure that the results of typeof are compared against a valid string
 
-        // Best Practices
+        /* Best Practices *****************************************************/
 
         "block-scoped-var":           2, // treat var statements as if they were block scoped
         "complexity":               [ 0, 11 ],
@@ -85,13 +85,13 @@
         "yoda":                     [ 2, "never" ],
                                          // require or disallow Yoda conditions
 
-        // Strict Mode
+        /* Strict Mode ********************************************************/
 
         "no-global-strict":           0, // disallow the "use strict" pragma in the global scope
         "no-extra-strict":            2, // disallow unnecessary use of "use strict"; when already in strict mode
         "strict":                     2, // require that all functions are run in strict mode
 
-        // Variables
+        /* Variables **********************************************************/
 
         "no-catch-shadow":            0, // disallow the catch clause parameter name being the same as a variable in the outer scope
         "no-delete-var":              2, // disallow deletion of variables
@@ -105,7 +105,7 @@
                                          // disallow declaration of variables that are not used in the code
         "no-use-before-define":       2, // disallow use of variables before they are defined
 
-        // Node.js
+        /* Node.js ************************************************************/
 
         "handle-callback-err":        2, // enforces error handling in callbacks
         "no-mixed-requires":        [ 0, true ],
@@ -116,7 +116,7 @@
         "no-restricted-modules":      0, // restrict usage of specified node modules
         "no-sync":                    0, // disallow use of synchronous methods
 
-        // Stylistic Issues
+        /* Stylistic Issues ***************************************************/
 
         "brace-style":              [ 2, "1tbs" ],
                                          // enforce one true brace style
@@ -161,7 +161,7 @@
         "one-var":                    0, // allow just one var statement per function
         "wrap-regex":                 2, // require regex literals to be wrapped in parentheses
 
-        // Legacy
+        /* Legacy *************************************************************/
 
         "max-depth":                [ 0, 4 ],
                                          // specify the maximum depth that blocks can be nested
