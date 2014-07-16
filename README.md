@@ -88,7 +88,7 @@ The suffix to add after the generated copyright notice.
 Type: `boolean`
 Default value: `false`
 
-Check the Git repository status.
+Check that the branch is on master and the working tree is clean.
 
 #### options.release
 
