@@ -11,13 +11,6 @@ module.exports = function (grunt) {
                 "!node_modules/**/*.js"
             ]
         },
-        "jshint": {
-            "src": [
-                ".eslintrc",
-                "**/*.json",
-                "!node_modules/**/*.json"
-            ]
-        },
         "module": {
             "check-repository": {
                 "options": {
@@ -41,19 +34,11 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks("grunt-bumpup");
-    grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-eslint");
 
     grunt.loadTasks("tasks");
 
-    grunt.registerTask("default", [
-        "lint"
-    ]);
-
-    grunt.registerTask("lint", [
-        "jshint",
-        "eslint"
-    ]);
+    grunt.registerTask("default", "eslint");
 
     grunt.registerTask("publish", function (type) {
         grunt.task.run("default");
@@ -63,7 +48,5 @@ module.exports = function (grunt) {
         grunt.task.run("module:release-publish");
     });
 
-    grunt.registerTask("travis", [
-        "default"
-    ]);
+    grunt.registerTask("travis", "default");
 };
