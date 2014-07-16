@@ -24,7 +24,7 @@ npm install grunt-module --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```javascript
-grunt.loadNpmTasks('grunt-module');
+grunt.loadNpmTasks("grunt-module");
 ```
 
 ## The "module" task
@@ -35,11 +35,11 @@ In your project's Gruntfile, add a section named `module` to the data object pas
 
 ```javascript
 grunt.initConfig({
-    module: {
-        options: {
+    "module": {
+        "options": {
             // Task-specific options go here.
         },
-        your_target: {
+        "your_target": {
             // Target-specific file lists and/or options go here.
         }
     }
@@ -65,21 +65,21 @@ The line number at which to insert or replace the generated copyright notice.
 #### options.newline
 
 Type: `string`
-Default value: `'\n'`
+Default value: `"\n"`
 
 The newline character to use.
 
 #### options.prefix
 
 Type: `string`
-Default value: `''`
+Default value: `""`
 
 The prefix to add before the generated copyright notice.
 
 #### options.suffix
 
 Type: `string`
-Default value: `''`
+Default value: `""`
 
 The suffix to add after the generated copyright notice.
 
@@ -108,23 +108,23 @@ Publish to the npm registry.
 
 ```javascript
 grunt.initConfig({
-    module: {
-        'check-repository': {
-            options: {
-                check: true
+    "module": {
+        "check-repository": {
+            "options": {
+                "check": true
             }
         },
-        'license-copyright': {
-            options: {
-                replace: true,
-                line: 3
+        "license-copyright": {
+            "options": {
+                "replace": true,
+                "line": 3
             },
-            src: 'LICENSE'
+            "src": "LICENSE"
         },
-        'release-publish': {
-            options: {
-                release: true,
-                publish: true
+        "release-publish": {
+            "options": {
+                "release": true,
+                "publish": true
             }
         }
     }
