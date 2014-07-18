@@ -8,8 +8,8 @@ var git = new Git();
 var npm = new Npm();
 
 var MultiTask = function (grunt, options) {
-    this.check = function () {
-        return options.check ? git.getBranch().then(function (branch) {
+    this.check = options.check ? function () {
+        return git.getBranch().then(function (branch) {
             if (branch !== options.branch) {
                 grunt.fail.warn('Not on branch ' + options.branch + '.');
             }
@@ -21,28 +21,28 @@ var MultiTask = function (grunt, options) {
             }
 
             grunt.log.ok('Clean working tree.');
-        }) : Promise.resolve();
-    };
+        });
+    } : Promise.resolve;
 
-    this.publish = function () {
-        return options.publish ? npm.publish().then(function () {
+    this.publish = options.publish ? function () {
+        return npm.publish().then(function () {
             grunt.log.ok('Published to npm.');
-        }) : Promise.resolve();
-    };
+        });
+    } : Promise.resolve;
 
-    this.release = function () {
+    this.release = options.release ? function () {
         var pkg = grunt.file.readJSON('package.json');
         var version = 'v' + pkg.version;
         var message = 'Release ' + version;
 
-        return options.release ? git.addAll().then(function () {
+        return git.addAll().then(function () {
             return git.commit(message);
         }).then(function () {
             return git.tag(version, message);
         }).then(git.pushAll).then(function () {
             grunt.log.ok('Released ' + version + '.');
-        }) : Promise.resolve();
-    };
+        });
+    } : Promise.resolve;
 
     var createCopyright = function () {
         var currentYear = new Date().getFullYear();
