@@ -1,63 +1,61 @@
-"use strict";
+'use strict';
 
-var createExecutable = require("./exe").createExecutable;
+var Executable = require('./executable');
 
-var Git = function (grunt) {
-    var executable = createExecutable(grunt, "git");
+var Git = function () {
+    var git = new Executable('git');
 
-    this.addAll = function (callback) {
-        executable.execute([
-            "add",
-            "--all"
-        ], callback);
+    this.addAll = function () {
+        return git.execute([
+            'add',
+            '--all'
+        ]);
     };
 
-    this.commit = function (message, callback) {
-        executable.execute([
-            "commit",
-            "-m",
+    this.commit = function (message) {
+        return git.execute([
+            'commit',
+            '-m',
             message
-        ], callback);
+        ]);
     };
 
-    this.getBranch = function (callback) {
-        executable.execute([
-            "rev-parse",
-            "--abbrev-ref",
-            "HEAD"
-        ], callback);
+    this.getBranch = function () {
+        return git.execute([
+            'rev-parse',
+            '--abbrev-ref',
+            'HEAD'
+        ]);
     };
 
-    this.getStatus = function (callback) {
-        executable.execute([
-            "status",
-            "--porcelain"
-        ], callback);
+    this.getStatus = function () {
+        return git.execute([
+            'status',
+            '--porcelain'
+        ]);
     };
 
-    this.pushAll = function (callback) {
-        executable.execute([
-            "push",
-            "--all"
-        ], function () {
-            executable.execute([
-                "push",
-                "--tags"
-            ], callback);
+    this.pushAll = function () {
+        return git.execute([
+            'push',
+            '--all'
+        ]).then(function () {
+            return git.execute([
+                'push',
+                '--tags'
+            ]);
         });
     };
 
-    this.tag = function (name, message, callback) {
-        executable.execute([
-            "tag",
-            "-a",
+    this.tag = function (name, message) {
+        return git.execute([
+            'tag',
+            '-a',
             name,
-            "-m",
+            '-m',
             message
-        ], callback);
+        ]);
     };
 };
 
-exports.createGit = function (grunt) {
-    return new Git(grunt);
-};
+module.exports = Git;

@@ -1,17 +1,15 @@
-"use strict";
+'use strict';
 
-var createExecutable = require("./exe").createExecutable;
+var Executable = require('./executable');
 
-var Npm = function (grunt) {
-    var executable = createExecutable(grunt, "npm");
+var Npm = function () {
+    var npm = new Executable('npm');
 
-    this.publish = function (callback) {
-        executable.execute([
-            "publish"
-        ], callback);
+    this.publish = function () {
+        return npm.execute([
+            'publish'
+        ]);
     };
 };
 
-exports.createNpm = function (grunt) {
-    return new Npm(grunt);
-};
+module.exports = Npm;

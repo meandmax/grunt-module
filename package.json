@@ -33,6 +33,9 @@
     "scripts": {
         "test": "node_modules/.bin/grunt"
     },
+    "dependencies": {
+        "promise": "~5.0.0"
+    },
     "devDependencies": {
         "grunt": "~0.4.5",
         "grunt-bumpup": "~0.5.2",
