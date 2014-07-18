@@ -12,11 +12,11 @@ var MultiTask = function (grunt, options) {
         }
 
         return git.getBranch().then(function (branch) {
-            if (branch !== 'master') {
-                grunt.fail.warn('Not on branch master.');
+            if (branch !== options.branch) {
+                grunt.fail.warn('Not on branch ' + options.branch + '.');
             }
 
-            grunt.log.ok('On branch master.');
+            grunt.log.ok('On branch ' + branch + '.');
         }).then(git.getStatus).then(function (status) {
             if (status) {
                 grunt.fail.warn('Unclean working tree.');

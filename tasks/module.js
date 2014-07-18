@@ -7,6 +7,7 @@ module.exports = function (grunt) {
         var self = this;
 
         var options = self.options({
+            branch: 'master',
             replace: false,
             line: 1,
             newline: '\n',
