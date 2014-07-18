@@ -13,7 +13,7 @@
 
 ## Getting Started
 
-This plugin requires Grunt `~0.4.0`
+This plugin requires Grunt `~0.4.0`.
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -24,7 +24,7 @@ npm install grunt-module --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```javascript
-grunt.loadNpmTasks("grunt-module");
+grunt.loadNpmTasks('grunt-module');
 ```
 
 ## The "module" task
@@ -35,11 +35,11 @@ In your project's Gruntfile, add a section named `module` to the data object pas
 
 ```javascript
 grunt.initConfig({
-    "module": {
-        "options": {
+    module: {
+        options: {
             // Task-specific options go here.
         },
-        "your_target": {
+        your_target: {
             // Target-specific file lists and/or options go here.
         }
     }
@@ -47,6 +47,13 @@ grunt.initConfig({
 ```
 
 ### Options
+
+#### options.branch
+
+Type: `string`
+Default value: `'master'`
+
+The branch to release and publish from.
 
 #### options.replace
 
@@ -65,21 +72,21 @@ The line number at which to insert or replace the generated copyright notice.
 #### options.newline
 
 Type: `string`
-Default value: `"\n"`
+Default value: `'\n'`
 
 The newline character to use.
 
 #### options.prefix
 
 Type: `string`
-Default value: `""`
+Default value: `''`
 
 The prefix to add before the generated copyright notice.
 
 #### options.suffix
 
 Type: `string`
-Default value: `""`
+Default value: `''`
 
 The suffix to add after the generated copyright notice.
 
@@ -88,7 +95,7 @@ The suffix to add after the generated copyright notice.
 Type: `boolean`
 Default value: `false`
 
-Check that the branch is on master and the working tree is clean.
+Check that the branch is on `options.branch` and the working tree is clean.
 
 #### options.release
 
@@ -108,23 +115,24 @@ Publish to the npm registry.
 
 ```javascript
 grunt.initConfig({
-    "module": {
-        "check-repository": {
-            "options": {
-                "check": true
+    module: {
+        'check-repository': {
+            options: {
+                branch: 'dev',
+                check: true
             }
         },
-        "license-copyright": {
-            "options": {
-                "replace": true,
-                "line": 3
+        'license-copyright': {
+            options: {
+                replace: true,
+                line: 3
             },
-            "src": "LICENSE"
+            src: 'LICENSE'
         },
-        "release-publish": {
-            "options": {
-                "release": true,
-                "publish": true
+        'release-publish': {
+            options: {
+                release: true,
+                publish: true
             }
         }
     }
@@ -144,7 +152,7 @@ If this plugin is used to generate a copyright notice, please add the following 
 }
 ```
 
-Use a grunt plugin like [grunt-bumpup](https://github.com/Darsain/grunt-bumpup) to update your project's version.
+Use a grunt plugin like [grunt-bumpup](https://github.com/Darsain/grunt-bumpup) to update your project's npm version.
 
 ## Running Tests
 
@@ -159,7 +167,3 @@ then run the tests:
 ```sh
 npm test
 ```
-
-## License
-
-Licensed under the MIT license.
