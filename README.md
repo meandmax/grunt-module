@@ -27,7 +27,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-module');
 ```
 
-## The "module" task
+## The `module` task
 
 ### Overview
 
@@ -139,7 +139,7 @@ grunt.initConfig({
 });
 ```
 
-If this plugin is used to generate a copyright notice, please add the following fields to your project's package.json file:
+If this plugin is used to generate a copyright notice, please add the following fields to your project's `package.json` file:
 
 ```json
 {
