@@ -1,17 +1,15 @@
 'use strict';
 
 var Git = require('./git');
-var git = new Git();
 var Npm = require('./npm');
+var Promise = require('promise');
+
+var git = new Git();
 var npm = new Npm();
 
 var MultiTask = function (grunt, options) {
     this.check = function () {
-        if (!options.check) {
-            return;
-        }
-
-        return git.getBranch().then(function (branch) {
+        return options.check ? git.getBranch().then(function (branch) {
             if (branch !== options.branch) {
                 grunt.fail.warn('Not on branch ' + options.branch + '.');
             }
@@ -23,35 +21,27 @@ var MultiTask = function (grunt, options) {
             }
 
             grunt.log.ok('Clean working tree.');
-        });
+        }) : Promise.resolve();
     };
 
     this.publish = function () {
-        if (!options.publish) {
-            return;
-        }
-
-        return npm.publish().then(function () {
+        return options.publish ? npm.publish().then(function () {
             grunt.log.ok('Published to npm.');
-        });
+        }) : Promise.resolve();
     };
 
     this.release = function () {
-        if (!options.release) {
-            return;
-        }
-
         var pkg = grunt.file.readJSON('package.json');
         var version = 'v' + pkg.version;
         var message = 'Release ' + version;
 
-        git.addAll().then(function () {
+        return options.release ? git.addAll().then(function () {
             return git.commit(message);
         }).then(function () {
             return git.tag(version, message);
         }).then(git.pushAll).then(function () {
             grunt.log.ok('Released ' + version + '.');
-        });
+        }) : Promise.resolve();
     };
 
     var createCopyright = function () {
