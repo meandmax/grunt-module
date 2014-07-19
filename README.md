@@ -118,7 +118,7 @@ grunt.initConfig({
     module: {
         'check-repository': {
             options: {
-                branch: 'dev',
+                branch: 'release',
                 check: true
             }
         },
