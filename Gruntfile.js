@@ -5,11 +5,22 @@ module.exports = function (grunt) {
         bumpup: {
             file: 'package.json'
         },
-        eslint: {
-            src: [
-                '**/*.js',
-                '!node_modules/**/*.js'
-            ]
+        jshint: {
+            'lint-js': {
+                options: {
+                    jshintrc: '.jshintrc'
+                },
+                src: [
+                    '**/*.js',
+                    '!node_modules/**/*.js'
+                ]
+            },
+            'lint-json': {
+                src: [
+                    '**/*.json',
+                    '!node_modules/**/*.json'
+                ]
+            }
         },
         module: {
             'check-repository': {
@@ -33,12 +44,18 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-eslint');
 
     grunt.loadTasks('tasks');
 
-    grunt.registerTask('default', 'eslint');
+    grunt.registerTask('default', 'lint');
+
+    grunt.registerTask('lint', [
+        'jshint:lint-js',
+        'jshint:lint-json'
+    ]);
 
     grunt.registerTask('publish', function (type) {
         grunt.task.run('default');
