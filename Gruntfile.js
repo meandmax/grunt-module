@@ -6,21 +6,15 @@ module.exports = function (grunt) {
             file: 'package.json'
         },
         jshint: {
-            'lint-js': {
-                options: {
-                    jshintrc: '.jshintrc'
-                },
-                src: [
-                    '**/*.js',
-                    '!node_modules/**/*.js'
-                ]
+            options: {
+                jshintrc: '.jshintrc'
             },
-            'lint-json': {
-                src: [
-                    '**/*.json',
-                    '!node_modules/**/*.json'
-                ]
-            }
+            src: [
+                '**/*.js',
+                '**/*.json',
+                '!node_modules/**/*.js',
+                '!node_modules/**/*.json'
+            ]
         },
         module: {
             'check-repository': {
@@ -50,12 +44,7 @@ module.exports = function (grunt) {
 
     grunt.loadTasks('tasks');
 
-    grunt.registerTask('default', 'lint');
-
-    grunt.registerTask('lint', [
-        'jshint:lint-js',
-        'jshint:lint-json'
-    ]);
+    grunt.registerTask('default', 'jshint');
 
     grunt.registerTask('publish', function (type) {
         grunt.task.run('default');
