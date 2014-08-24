@@ -2,8 +2,8 @@
 
 'use strict';
 
-var Git = require('./git');
-var Npm = require('./npm');
+var Git     = require('./git');
+var Npm     = require('./npm');
 var Promise = require('promise');
 
 var git = new Git();
