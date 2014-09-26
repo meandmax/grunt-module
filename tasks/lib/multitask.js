@@ -4,7 +4,7 @@
 
 var Git     = require('./git');
 var Npm     = require('./npm');
-var Promise = require('promise');
+var Promise = global.Promise || require('es6-promise').Promise;
 
 var git = new Git();
 var npm = new Npm();

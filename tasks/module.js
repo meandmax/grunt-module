@@ -20,10 +20,17 @@ module.exports = function (grunt) {
 
         var multiTask = new MultiTask(grunt, options);
 
-        multiTask.check().then(function () {
-            self.files.forEach(function (file) {
-                file.src.forEach(multiTask.writeCopyright);
+        multiTask.check()
+            .then(function () {
+                self.files.forEach(function (file) {
+                    file.src.forEach(multiTask.writeCopyright);
+                });
+            })
+            .then(multiTask.release)
+            .then(multiTask.publish)
+            .then(self.async())
+            .catch(function (error) {
+                grunt.fail.warn(error.message);
             });
-        }).then(multiTask.release).then(multiTask.publish).done(self.async());
     });
 };

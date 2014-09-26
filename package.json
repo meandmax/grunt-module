@@ -34,7 +34,7 @@
         "test": "node_modules/.bin/grunt"
     },
     "dependencies": {
-        "promise": "~5.0.0"
+        "es6-promise": "~1.0.0"
     },
     "devDependencies": {
         "grunt": "~0.4.5",

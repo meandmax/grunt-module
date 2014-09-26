@@ -2,8 +2,8 @@
 
 'use strict';
 
-var Promise = require('promise');
-var execute = Promise.denodeify(require('child_process').exec);
+var exec    = require('child_process').exec;
+var Promise = global.Promise || require('es6-promise').Promise;
 
 var createCommand = function (name, args) {
     return name + ' ' + args.map(function (arg) {
@@ -13,8 +13,14 @@ var createCommand = function (name, args) {
 
 var Executable = function (name) {
     this.execute = function (args) {
-        return execute(createCommand(name, args)).then(function (result) {
-            return result.trim();
+        return new Promise(function (resolve, reject) {
+            exec(createCommand(name, args), function (error, stdout) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(stdout.trim());
+                }
+            });
         });
     };
 };
