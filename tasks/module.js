@@ -18,14 +18,16 @@ module.exports = function (grunt) {
             publish: false
         });
 
+        var writeCopyright = function () {
+            self.files.forEach(function (file) {
+                file.src.forEach(multiTask.writeCopyright);
+            });
+        };
+
         var multiTask = new MultiTask(grunt, options);
 
         multiTask.check()
-            .then(function () {
-                self.files.forEach(function (file) {
-                    file.src.forEach(multiTask.writeCopyright);
-                });
-            })
+            .then(writeCopyright)
             .then(multiTask.release)
             .then(multiTask.publish)
             .then(self.async())
