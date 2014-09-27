@@ -9,7 +9,7 @@ var Promise = global.Promise || require('es6-promise').Promise;
 var git = new Git();
 var npm = new Npm();
 
-var staticResolve = Promise.resolve.bind(Promise);
+var resolve = Promise.resolve.bind(Promise);
 
 var MultiTask = function (grunt, options) {
     this.check = options.check ? function () {
@@ -26,13 +26,13 @@ var MultiTask = function (grunt, options) {
 
             grunt.log.ok('Clean working tree.');
         });
-    } : staticResolve;
+    } : resolve;
 
     this.publish = options.publish ? function () {
         return npm.publish().then(function () {
             grunt.log.ok('Published to npm.');
         });
-    } : staticResolve;
+    } : resolve;
 
     this.release = options.release ? function () {
         var pkg = grunt.file.readJSON('package.json');
@@ -46,7 +46,7 @@ var MultiTask = function (grunt, options) {
         }).then(git.pushAll).then(function () {
             grunt.log.ok('Released ' + version + '.');
         });
-    } : staticResolve;
+    } : resolve;
 
     var createCopyright = function () {
         var currentYear = new Date().getFullYear();
