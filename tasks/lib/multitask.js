@@ -50,9 +50,15 @@ var MultiTask = function (grunt, options) {
                 rl.close();
 
                 if (!(/^\s*y/i).test(answer)) {
-                    git.resetHard().then(function () {
-                        grunt.fail.warn('Release aborted.');
-                    }).catch(reject);
+                    var message = 'Release aborted.';
+
+                    if (options.check) {
+                        git.resetHard().then(function () {
+                            grunt.fail.warn(message);
+                        }).catch(reject);
+                    } else {
+                        grunt.fail.warn(message);
+                    }
                 } else {
                     resolve();
                 }
