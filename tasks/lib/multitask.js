@@ -40,7 +40,7 @@ var MultiTask = function (grunt, options) {
         var version = 'v' + pkg.version;
         var message = 'Release ' + version;
 
-        return new Promise(function (resolve) {
+        return new Promise(function (resolve, reject) {
             var rl = readline.createInterface({
                 input: process.stdin,
                 output: process.stdout
@@ -52,6 +52,8 @@ var MultiTask = function (grunt, options) {
                 if (!(/^\s*y/i).test(answer)) {
                     git.resetHard().then(function () {
                         grunt.fail.warn('Release aborted.');
+                    }).catch(function (error) {
+                        reject(error);
                     });
                 } else {
                     resolve();
