@@ -16,13 +16,13 @@ var MultiTask = function (grunt, options) {
     this.check = options.check ? function () {
         return git.getBranch().then(function (branch) {
             if (branch !== options.branch) {
-                grunt.fail.warn('Not on branch ' + options.branch + '.');
+                throw new Error('Not on branch ' + options.branch + '.');
             }
 
             grunt.log.ok('On branch ' + branch + '.');
         }).then(git.getStatus).then(function (status) {
             if (status) {
-                grunt.fail.warn('Unclean working tree.');
+                throw new Error('Unclean working tree.');
             }
 
             grunt.log.ok('Clean working tree.');
@@ -50,15 +50,7 @@ var MultiTask = function (grunt, options) {
                 rl.close();
 
                 if (!(/^\s*y/i).test(answer)) {
-                    var message = 'Release aborted.';
-
-                    if (options.check) {
-                        git.resetHard().then(function () {
-                            grunt.fail.warn(message);
-                        }).catch(reject);
-                    } else {
-                        grunt.fail.warn(message);
-                    }
+                    reject(new Error('Release aborted.'));
                 } else {
                     resolve();
                 }
