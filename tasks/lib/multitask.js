@@ -2,9 +2,10 @@
 
 'use strict';
 
-var Git     = require('./git');
-var Npm     = require('./npm');
-var Promise = global.Promise || require('es6-promise').Promise;
+var Git      = require('./git');
+var Npm      = require('./npm');
+var Promise  = global.Promise || require('es6-promise').Promise;
+var readline = require('readline');
 
 var git = new Git();
 var npm = new Npm();
@@ -35,11 +36,28 @@ var MultiTask = function (grunt, options) {
     } : resolve;
 
     this.release = options.release ? function () {
-        var pkg = grunt.file.readJSON('package.json');
+        var pkg     = grunt.file.readJSON('package.json');
         var version = 'v' + pkg.version;
         var message = 'Release ' + version;
 
-        return git.addAll().then(function () {
+        return new Promise(function (resolve) {
+            var rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout
+            });
+
+            rl.question(message + '? [Y/n]\n', function (answer) {
+                rl.close();
+
+                if (!(/^\s*y/i).test(answer)) {
+                    git.resetHard().then(function () {
+                        grunt.fail.warn('Release aborted.');
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        }).then(git.addAll).then(function () {
             return git.commit(message);
         }).then(function () {
             return git.tag(version, message);
@@ -49,8 +67,8 @@ var MultiTask = function (grunt, options) {
     } : resolve;
 
     var createCopyright = function () {
-        var currentYear = new Date().getFullYear();
-        var pkg = grunt.file.readJSON('package.json');
+        var currentYear   = new Date().getFullYear();
+        var pkg           = grunt.file.readJSON('package.json');
         var inceptionYear = parseInt(pkg.inceptionYear, 10);
 
         if (isNaN(inceptionYear)) {
@@ -80,7 +98,7 @@ var MultiTask = function (grunt, options) {
     };
 
     this.writeCopyright = function (filename) {
-        var lines = grunt.file.read(filename).split(options.newline);
+        var lines     = grunt.file.read(filename).split(options.newline);
         var copyright = createCopyright();
 
         if (options.replace) {

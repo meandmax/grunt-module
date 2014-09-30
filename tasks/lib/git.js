@@ -47,6 +47,13 @@ var Git = function () {
         });
     };
 
+    this.resetHard = function () {
+        return git.execute([
+            'reset',
+            '--hard'
+        ]);
+    };
+
     this.tag = function (name, message) {
         return git.execute([
             'tag',
