@@ -1,6 +1,6 @@
 # grunt-module
 
-> A Grunt plugin to release and publish an npm module.
+> A Grunt plugin to easily release and publish your npm module.
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/clebert/grunt-module/master/LICENSE)
 [![npm](http://img.shields.io/npm/v/grunt-module.svg?style=flat)](https://www.npmjs.org/package/grunt-module)
@@ -113,12 +113,20 @@ Publish to the npm registry.
 
 ### Usage
 
+This Grunt plugin works best in conjunction with a Grunt plugin like [grunt-bumpup](https://github.com/Darsain/grunt-bumpup) to update your project's npm version.
+
 ```javascript
 grunt.initConfig({
+    bumpup: {
+        options: {
+            newlineEof: true
+        },
+        file: 'package.json'
+    },
     module: {
         'check-repository': {
             options: {
-                branch: 'release',
+                branch: 'master',
                 check: true
             }
         },
@@ -137,6 +145,18 @@ grunt.initConfig({
         }
     }
 });
+
+grunt.registerTask('test', [
+    // ...
+]);
+
+grunt.registerTask('publish', function (type) {
+    grunt.task.run('test');
+    grunt.task.run('module:check-repository');
+    grunt.task.run('bumpup:' + type);
+    grunt.task.run('module:license-copyright');
+    grunt.task.run('module:release-publish');
+});
 ```
 
 If this plugin is used to generate a copyright notice, please add the following fields to your project's `package.json` file:
@@ -148,11 +168,9 @@ If this plugin is used to generate a copyright notice, please add the following 
         "email": "optional_your_email",
         "url": "optional_your_url"
     },
-    "inceptionYear": 2014
+    "inceptionYear": 2015
 }
 ```
-
-Use a grunt plugin like [grunt-bumpup](https://github.com/Darsain/grunt-bumpup) to update your project's npm version.
 
 ## Running Tests
 

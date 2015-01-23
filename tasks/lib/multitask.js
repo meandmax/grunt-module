@@ -4,7 +4,7 @@
 
 var Git      = require('./git');
 var Npm      = require('./npm');
-var Promise  = global.Promise || require('es6-promise').Promise;
+var Promise  = require('bluebird');
 var readline = require('readline');
 
 var git = new Git();

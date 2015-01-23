@@ -3,7 +3,7 @@
 'use strict';
 
 var exec    = require('child_process').exec;
-var Promise = global.Promise || require('es6-promise').Promise;
+var Promise = require('bluebird');
 
 var createCommand = function (name, args) {
     return name + ' ' + args.map(function (arg) {

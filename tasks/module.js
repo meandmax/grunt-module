@@ -4,9 +4,7 @@ var MultiTask = require('./lib/multitask');
 
 module.exports = function (grunt) {
     grunt.registerMultiTask('module', function () {
-        var self = this;
-
-        var options = self.options({
+        var options = this.options({
             branch: 'master',
             replace: false,
             line: 1,
@@ -19,10 +17,10 @@ module.exports = function (grunt) {
         });
 
         var writeCopyright = function () {
-            self.files.forEach(function (file) {
+            this.files.forEach(function (file) {
                 file.src.forEach(multiTask.writeCopyright);
             });
-        };
+        }.bind(this);
 
         var multiTask = new MultiTask(grunt, options);
 
@@ -30,7 +28,7 @@ module.exports = function (grunt) {
             .then(writeCopyright)
             .then(multiTask.release)
             .then(multiTask.publish)
-            .then(self.async())
+            .then(this.async())
             .catch(function (error) {
                 grunt.fail.warn(error.message);
             });
