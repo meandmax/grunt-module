@@ -1,15 +1,16 @@
 'use strict';
 
-var Executable = require('./executable');
+var executableStamp = require('./executable.js');
+var stampit         = require('stampit');
 
-var Npm = function () {
-    var npm = new Executable('npm');
-
-    this.publish = function () {
-        return npm.execute([
+var npmStamp = stampit().methods({
+    publishAsync: function () {
+        return this.executeAsync([
             'publish'
         ]);
-    };
-};
+    }
+}).state({
+    name: 'npm'
+});
 
-module.exports = Npm;
+module.exports = executableStamp.compose(npmStamp);

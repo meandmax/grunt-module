@@ -55,41 +55,6 @@ Default value: `'master'`
 
 The branch to release and publish from.
 
-#### options.replace
-
-Type: `boolean`
-Default value: `false`
-
-Insert or replace the generated copyright notice.
-
-#### options.line
-
-Type: `number`
-Default value: `1`
-
-The line number at which to insert or replace the generated copyright notice.
-
-#### options.newline
-
-Type: `string`
-Default value: `'\n'`
-
-The newline character to use.
-
-#### options.prefix
-
-Type: `string`
-Default value: `''`
-
-The prefix to add before the generated copyright notice.
-
-#### options.suffix
-
-Type: `string`
-Default value: `''`
-
-The suffix to add after the generated copyright notice.
-
 #### options.check
 
 Type: `boolean`
@@ -97,19 +62,19 @@ Default value: `false`
 
 Check that the branch is on `options.branch` and the working tree is clean.
 
-#### options.release
-
-Type: `boolean`
-Default value: `false`
-
-Make and push a Git tag/release.
-
 #### options.publish
 
 Type: `boolean`
 Default value: `false`
 
 Publish to the npm registry.
+
+#### options.release
+
+Type: `boolean`
+Default value: `false`
+
+Make and push a Git tag/release.
 
 ### Usage
 
@@ -130,13 +95,6 @@ grunt.initConfig({
                 check: true
             }
         },
-        'license-copyright': {
-            options: {
-                replace: true,
-                line: 3
-            },
-            src: 'LICENSE'
-        },
         'release-publish': {
             options: {
                 release: true,
@@ -154,22 +112,8 @@ grunt.registerTask('publish', function (type) {
     grunt.task.run('test');
     grunt.task.run('module:check-repository');
     grunt.task.run('bumpup:' + type);
-    grunt.task.run('module:license-copyright');
     grunt.task.run('module:release-publish');
 });
-```
-
-If this plugin is used to generate a copyright notice, please add the following fields to your project's `package.json` file:
-
-```json
-{
-    "author": {
-        "name": "your_name",
-        "email": "optional_your_email",
-        "url": "optional_your_url"
-    },
-    "inceptionYear": 2015
-}
 ```
 
 ## Running Tests

@@ -1,68 +1,65 @@
 'use strict';
 
-var Executable = require('./executable');
+var executableStamp = require('./executable.js');
+var stampit         = require('stampit');
 
-var Git = function () {
-    var git = new Executable('git');
-
-    this.addAll = function () {
-        return git.execute([
+var gitStamp = stampit().methods({
+    addAllAsync: function () {
+        return this.executeAsync([
             'add',
             '--all'
         ]);
-    };
-
-    this.commit = function (message) {
-        return git.execute([
+    },
+    commitAsync: function (message) {
+        return this.executeAsync([
             'commit',
             '-m',
             message
         ]);
-    };
-
-    this.getBranch = function () {
-        return git.execute([
+    },
+    getBranchAsync: function () {
+        return this.executeAsync([
             'rev-parse',
             '--abbrev-ref',
             'HEAD'
         ]);
-    };
-
-    this.getStatus = function () {
-        return git.execute([
+    },
+    getStatusAsync: function () {
+        return this.executeAsync([
             'status',
             '--porcelain'
         ]);
-    };
+    },
+    pushAllAsync: function () {
+        var self = this;
 
-    this.pushAll = function () {
-        return git.execute([
+        return self.executeAsync([
             'push',
             '--all'
         ]).then(function () {
-            return git.execute([
+            return self.executeAsync([
                 'push',
                 '--tags'
             ]);
         });
-    };
-
-    this.resetHard = function () {
-        return git.execute([
+    },
+    resetHardAsync: function () {
+        return this.executeAsync([
             'reset',
             '--hard'
         ]);
-    };
-
-    this.tag = function (name, message) {
-        return git.execute([
+    },
+    tagAsync: function (name, message) {
+        return this.executeAsync([
             'tag',
             '-a',
             name,
             '-m',
             message
         ]);
-    };
-};
+    }
+}).state({
+    name: 'git'
+});
 
-module.exports = Git;
+module.exports = executableStamp.compose(gitStamp);

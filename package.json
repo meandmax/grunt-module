@@ -34,7 +34,8 @@
         "test": "node_modules/.bin/grunt"
     },
     "dependencies": {
-        "bluebird": "~2.8.2"
+        "bluebird": "~2.9.0",
+        "stampit": "~1.1.0"
     },
     "devDependencies": {
         "grunt": "latest",
