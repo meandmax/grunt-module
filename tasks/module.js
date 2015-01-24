@@ -1,7 +1,7 @@
 'use strict';
 
 var stampit    = require('stampit');
-var utilsStamp = require('./lib/utils.js');
+var utilsStamp = require('../lib/utils.js');
 
 module.exports = function (grunt) {
     grunt.registerMultiTask('module', function () {
