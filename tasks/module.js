@@ -5,8 +5,6 @@ var utilsStamp = require('./lib/utils.js');
 
 module.exports = function (grunt) {
     grunt.registerMultiTask('module', function () {
-        var done = this.async();
-
         var loggerStamp = stampit().methods({
             log: grunt.log.ok
         });
@@ -18,18 +16,14 @@ module.exports = function (grunt) {
             release: false
         }));
 
-        utils.checkAsync()
-            .then(function () {
-                return utils.releaseAsync();
-            })
-            .then(function () {
-                return utils.publishAsync();
-            })
-            .then(function () {
-                return done();
-            })
-            .catch(function (error) {
-                grunt.fail.warn(error.message);
-            });
+        var done = this.async();
+
+        utils.checkAsync().then(function () {
+            return utils.releaseAsync();
+        }).then(function () {
+            return utils.publishAsync();
+        }).then(done).catch(function (error) {
+            grunt.fail.warn(error.message);
+        });
     });
 };
